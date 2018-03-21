@@ -1,0 +1,25 @@
+{
+  "name": "detect-track",
+  "version": "1.0.0",
+  "description": "Detect and track stuff with OpenCV",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattCollins84/detect-track.git"
+  },
+  "dependencies": {
+    "munkres-js": "^1.2.2",
+    "opencv4nodejs": "^3.0.3",
+    "request": "^2.83.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MattCollins84/detect-track/issues"
+  },
+  "homepage": "https://github.com/MattCollins84/detect-track#readme"
+}
