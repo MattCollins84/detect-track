@@ -13,6 +13,8 @@
   "dependencies": {
     "munkres-js": "^1.2.2",
     "opencv4nodejs": "^3.0.3",
+    "optimist": "^0.6.1",
+    "polygons-intersect": "^1.0.3",
     "request": "^2.83.0"
   },
   "keywords": [],

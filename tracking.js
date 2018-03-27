@@ -21,7 +21,7 @@ let frameNum = 0;
 grabFrames(`./${movie}`, 35, (frame) => {
 
   if (frameNum % 30 === 0) {
-    items.detect(frame, ["people"], (err, rects) => {
+    items.detect(frame, { groups: ["people"] }, (err, rects) => {
       if (err) throw new Error(err);
       
       // detect items, purge the inactive ones
@@ -30,9 +30,7 @@ grabFrames(`./${movie}`, 35, (frame) => {
     })
   }
 
-  if (frameNum % 3 === 0) {
-    items.track(frame);
-  }
+  items.track(frame);
 
   items.getItems().forEach(item => {
     frame.drawRectangle(item.mostRecentPosition.openCVRect(), red, lineThickness);

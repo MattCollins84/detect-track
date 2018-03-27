@@ -24,6 +24,17 @@ var counter = { left: 0, right: 0}
 const items = new BGItemCollection(Item);
 grabFrames(`./${movie}`, 40, (frame) => {
 
+  const filter = (rect) => {
+    return rect.area >= 4000;
+  }
+
+  // detect the items on screen
+  const rects = items.detect(frame, { filter });
+  
+  // track items, purge the inactive ones
+  items.add(rects);
+  items.purgeInactive();
+
   // draw the centre line
   frame.drawLine(
     new cv.Point(frame.cols / 2, 0), 
@@ -31,13 +42,6 @@ grabFrames(`./${movie}`, 40, (frame) => {
     blue, 
     2
   );
-
-  // detect the items on screen
-  const rects = items.detect(frame);
-  
-  // track items, purge the inactive ones
-  items.add(rects);
-  items.purgeInactive();
 
   // do whatever we want...
   // in this case annotate and count
@@ -63,7 +67,7 @@ grabFrames(`./${movie}`, 40, (frame) => {
 
   frame.putText(`${("000" + counter.left).slice(-4)}`, new cv.Point((frame.cols / 2) - 102, 30), cv.FONT_ITALIC, 1.2, green, 2);
   frame.putText(`${("000" + counter.right).slice(-4)}`, new cv.Point((frame.cols / 2) + 5, 30), cv.FONT_ITALIC, 1.2, red, 2);
-
+  
   // put into window
   cv.imshow('Tracking', frame);
   
