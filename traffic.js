@@ -29,7 +29,7 @@ grabFrames(`./${movie}`, 40, (frame) => {
   }
 
   // detect the items on screen
-  const rects = items.detect(frame, { filter });
+  const rects = items.detect(frame, { filter, lowerThreshold: 220 });
   
   // track items, purge the inactive ones
   items.add(rects);

@@ -44,7 +44,7 @@ grabFrames(`./${movie}`, 20, (frame) => {
   ];
 
   const filter = (rect) => {
-    return rect.w <= 40 && rect.h <= 40;
+    return rect.y <= 100 && rect.w <= 40 && rect.h <= 40;
   }
 
   const rects = items.detect(frame, { colours, filter });
@@ -68,7 +68,7 @@ grabFrames(`./${movie}`, 20, (frame) => {
         break;
     }
     frame.drawRectangle(item.mostRecentPosition.openCVRect(), colour, lineThickness);
-    // frame.putText(`${item.id.toString()}`, new cv.Point(item.mostRecentPosition.x - 10, item.mostRecentPosition.y - 10), cv.FONT_ITALIC, 0.8, colour, 2);
+    frame.putText(`${item.id.toString()}`, new cv.Point(item.mostRecentPosition.x - 10, item.mostRecentPosition.y - 10), cv.FONT_ITALIC, 0.8, colour, 2);
   })
 
   frame.putText(
