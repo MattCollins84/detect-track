@@ -1,29 +1,20 @@
 /**
  * Dependencies
  */
-const cv = require('opencv4nodejs');
-const Item = require('./lib/Item');
-const Polygon = require('./lib/Polygon');
-const BGItemCollection = require('./lib/BGItemCollection');
-const { grabFrames } = require('./lib/Utils');
+import { cv, Item, Polygon, BGItemCollection, Utils, ICoordinate } from 'cv-analytics-lib';
+const { grabFrames } = Utils;
 const movie = 'garden.mp4';
 
 /**
  * Constants
  */
-const red = new cv.Vec(0, 0, 255);
-const paleRed = new cv.Vec(0, 0, 255);
-const green = new cv.Vec(0, 255, 0);
-const blue = new cv.Vec(255, 0, 0);
+const red = new cv.Vec3(0, 0, 255);
 const lineThickness = 2;
 
 /**
  * Item collection (BG Subtraction)
- * direction counter
- * Per frame...
  */
-var counter = { left: 0, right: 0}
-const items = new BGItemCollection(Item);
+const items = new BGItemCollection<Item>(Item);
 grabFrames(`./${movie}`, 120, (frame) => {
 
   const filter = (rect) => {
@@ -38,7 +29,7 @@ grabFrames(`./${movie}`, 120, (frame) => {
   items.purgeInactive();
 
   // define the restricted area;
-  const restricted = [
+  const restricted: ICoordinate[] = [
     [150, 0],
     [50, 250],
     [50, 575],
@@ -46,7 +37,7 @@ grabFrames(`./${movie}`, 120, (frame) => {
   ];
   const restrictedPoly = new Polygon(restricted);
   const restrictedRect = restrictedPoly.calculateBoundingRect();
-  frame.drawPolylines([restrictedPoly.toOpenCVPoly()], true, red, 2);
+  frame.drawPolylines([restrictedPoly.toOpenCVPoints()], true, red, 2);
 
   // do whatever we want...
   // in this case annotate and count
@@ -61,7 +52,7 @@ grabFrames(`./${movie}`, 120, (frame) => {
     let g = 255 - r; g = g < 160 ? 160 : g; g = distance == 0 ? 0 : g;
     const b = 0;
 
-    frame.drawRectangle(item.mostRecentPosition.openCVRect(), new cv.Vec(b, g, r), lineThickness);
+    frame.drawRectangle(item.mostRecentPosition.openCVRect(), new cv.Vec3(b, g, r), lineThickness);
   });
 
   // put into window

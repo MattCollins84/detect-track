@@ -1,22 +1,18 @@
 /**
  * Dependencies
  */
-const cv = require('opencv4nodejs');
-const ClassifyItemCollection = require('./lib/ClassifyItemCollection');
-const Item = require('./lib/Item')
-const { grabFrames } = require('./lib/Utils');
+import { cv, Item, ClassifyItemCollection, Utils } from 'cv-analytics-lib';
+const { grabFrames } = Utils;
 const movie = 'Tracking.mp4';
 
 /**
  * Constants
  */
-const red = new cv.Vec(0, 0, 255);
-const green = new cv.Vec(0, 255, 0);
-const blue = new cv.Vec(255, 0, 0);
+const red = new cv.Vec3(0, 0, 255);
 const lineThickness = 2;
 
 
-const items = new ClassifyItemCollection(Item);
+const items = new ClassifyItemCollection<Item>(Item);
 let frameNum = 0;
 grabFrames(`./${movie}`, 35, (frame) => {
 
@@ -34,7 +30,7 @@ grabFrames(`./${movie}`, 35, (frame) => {
 
   items.getItems().forEach(item => {
     frame.drawRectangle(item.mostRecentPosition.openCVRect(), red, lineThickness);
-    frame.putText(`${item.id.toString()}`, new cv.Point(item.mostRecentPosition.x + 10, item.mostRecentPosition.y + 25), cv.FONT_ITALIC, 0.8, red, 2);
+    frame.putText(`${item.id.toString()}`, new cv.Point2(item.mostRecentPosition.x + 10, item.mostRecentPosition.y + 25), cv.FONT_ITALIC, 0.8, red, 2);
   })
 
   frameNum++;

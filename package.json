@@ -11,11 +11,8 @@
     "url": "git+https://github.com/MattCollins84/detect-track.git"
   },
   "dependencies": {
-    "munkres-js": "^1.2.2",
     "cv-analytics-lib": "file:../cv-analytics-lib",
-    "optimist": "^0.6.1",
-    "polygons-intersect": "^1.0.3",
-    "request": "^2.83.0"
+    "optimist": "^0.6.1"
   },
   "keywords": [],
   "author": "",
@@ -23,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/MattCollins84/detect-track/issues"
   },
-  "homepage": "https://github.com/MattCollins84/detect-track#readme"
+  "homepage": "https://github.com/MattCollins84/detect-track#readme",
+  "devDependencies": {
+    "@types/node": "^9.6.4"
+  }
 }
