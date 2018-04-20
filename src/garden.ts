@@ -1,7 +1,7 @@
 /**
  * Dependencies
  */
-import { cv, Item, Polygon, BGItemCollection, Utils, ICoordinate } from 'cv-analytics-lib';
+import { cv, Item, Polygon, BGItemCollection, Utils, Point } from 'cv-analytics-lib';
 const { grabFrames } = Utils;
 const movie = 'garden.mp4';
 
@@ -29,11 +29,11 @@ grabFrames(`./${movie}`, 120, (frame) => {
   items.purgeInactive();
 
   // define the restricted area;
-  const restricted: ICoordinate[] = [
-    [150, 0],
-    [50, 250],
-    [50, 575],
-    [150, 575]
+  const restricted: Point[] = [
+    new Point({ x: 150, y: 0 }),
+    new Point({ x: 50, y: 250 }),
+    new Point({ x: 50, y: 575 }),
+    new Point({ x: 150, y: 575 })
   ];
   const restrictedPoly = new Polygon(restricted);
   const restrictedRect = restrictedPoly.calculateBoundingRect();

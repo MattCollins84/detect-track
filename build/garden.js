@@ -26,10 +26,10 @@ grabFrames(`./${movie}`, 120, (frame) => {
     items.purgeInactive();
     // define the restricted area;
     const restricted = [
-        [150, 0],
-        [50, 250],
-        [50, 575],
-        [150, 575]
+        new cv_analytics_lib_1.Point({ x: 150, y: 0 }),
+        new cv_analytics_lib_1.Point({ x: 50, y: 250 }),
+        new cv_analytics_lib_1.Point({ x: 50, y: 575 }),
+        new cv_analytics_lib_1.Point({ x: 150, y: 575 })
     ];
     const restrictedPoly = new cv_analytics_lib_1.Polygon(restricted);
     const restrictedRect = restrictedPoly.calculateBoundingRect();
