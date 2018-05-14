@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "cv-analytics-lib": "file:../cv-analytics-lib",
-    "optimist": "^0.6.1"
+    "optimist": "^0.6.1",
+    "request": "^2.85.0"
   },
   "keywords": [],
   "author": "",
