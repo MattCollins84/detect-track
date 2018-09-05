@@ -12,7 +12,7 @@
     "url": "git+https://github.com/MattCollins84/detect-track.git"
   },
   "dependencies": {
-    "cv-analytics-lib": "file:../cv-analytics-lib",
+    "cv-analytics-lib": "git+ssh://git@git.cloudview.co:root/cv-analytics-lib.git#2.0.2",
     "onvif": "^0.6.0",
     "optimist": "^0.6.1",
     "request": "^2.85.0",
