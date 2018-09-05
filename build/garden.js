@@ -26,13 +26,13 @@ grabFrames(`./${movie}`, 120, (frame) => {
     items.purgeInactive();
     // define the restricted area;
     const restricted = [
-        new cv_analytics_lib_1.Point({ x: 150, y: 0 }),
-        new cv_analytics_lib_1.Point({ x: 50, y: 250 }),
-        new cv_analytics_lib_1.Point({ x: 50, y: 575 }),
-        new cv_analytics_lib_1.Point({ x: 150, y: 575 })
+        new cv_analytics_lib_1.Point(150, 0),
+        new cv_analytics_lib_1.Point(50, 250),
+        new cv_analytics_lib_1.Point(50, 575),
+        new cv_analytics_lib_1.Point(150, 575)
     ];
     const restrictedPoly = new cv_analytics_lib_1.Polygon(restricted);
-    const restrictedRect = restrictedPoly.calculateBoundingRect();
+    const restrictedRect = restrictedPoly.getBoundingRect();
     frame.drawPolylines([restrictedPoly.toOpenCVPoints()], true, red, 2);
     // do whatever we want...
     // in this case annotate and count
@@ -46,7 +46,7 @@ grabFrames(`./${movie}`, 120, (frame) => {
         g = g < 160 ? 160 : g;
         g = distance == 0 ? 0 : g;
         const b = 0;
-        frame.drawRectangle(item.mostRecentPosition.openCVRect(), new cv_analytics_lib_1.cv.Vec3(b, g, r), lineThickness);
+        frame.drawRectangle(item.mostRecentPosition, new cv_analytics_lib_1.cv.Vec3(b, g, r), lineThickness);
     });
     // put into window
     cv_analytics_lib_1.cv.imshow('Tracking', frame);

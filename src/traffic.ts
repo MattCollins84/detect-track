@@ -23,7 +23,7 @@ const lineThickness = 2;
  * Per frame...
  */
 var counter = { left: 0, right: 0}
-const items = new BGItemCollection<Item>(Item);
+const items = new BGItemCollection(Item);
 grabFrames(`./${movie}`, 40, (frame) => {
 
   const filter = (rect) => {
@@ -49,7 +49,7 @@ grabFrames(`./${movie}`, 40, (frame) => {
   // in this case annotate and count
   items.getItems().forEach(item => {
     const colour = item.direction.x === 'left' ? green : red;
-    frame.drawRectangle(item.mostRecentPosition.openCVRect(), colour, lineThickness);
+    frame.drawRectangle(item.mostRecentPosition, colour, lineThickness);
     frame.putText(`${item.id.toString()} ${item.direction.x || ''}`, new cv.Point2(item.mostRecentPosition.x + 10, item.mostRecentPosition.y + 25), cv.FONT_ITALIC, 0.8, colour, 2);
   });
 

@@ -14,7 +14,7 @@ const lineThickness = 2;
 /**
  * Item collection (BG Subtraction)
  */
-const items = new BGItemCollection<Item>(Item);
+const items = new BGItemCollection(Item);
 grabFrames(`./${movie}`, 120, (frame) => {
 
   const filter = (rect) => {
@@ -30,13 +30,13 @@ grabFrames(`./${movie}`, 120, (frame) => {
 
   // define the restricted area;
   const restricted: Point[] = [
-    new Point({ x: 150, y: 0 }),
-    new Point({ x: 50, y: 250 }),
-    new Point({ x: 50, y: 575 }),
-    new Point({ x: 150, y: 575 })
+    new Point(150, 0),
+    new Point(50, 250),
+    new Point(50, 575),
+    new Point(150, 575)
   ];
   const restrictedPoly = new Polygon(restricted);
-  const restrictedRect = restrictedPoly.calculateBoundingRect();
+  const restrictedRect = restrictedPoly.getBoundingRect();
   frame.drawPolylines([restrictedPoly.toOpenCVPoints()], true, red, 2);
 
   // do whatever we want...
@@ -52,7 +52,7 @@ grabFrames(`./${movie}`, 120, (frame) => {
     let g = 255 - r; g = g < 160 ? 160 : g; g = distance == 0 ? 0 : g;
     const b = 0;
 
-    frame.drawRectangle(item.mostRecentPosition.openCVRect(), new cv.Vec3(b, g, r), lineThickness);
+    frame.drawRectangle(item.mostRecentPosition, new cv.Vec3(b, g, r), lineThickness);
   });
 
   // put into window

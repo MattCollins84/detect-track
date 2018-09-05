@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const cv_analytics_lib_1 = require("cv-analytics-lib");
 const { grabFrames } = cv_analytics_lib_1.Utils;
-const movie = 'balls.mp4';
+const movie = 'hi-vis-small.mp4';
 /**
  * Constants
  */
@@ -22,32 +22,21 @@ grabFrames(`./${movie}`, 20, (frame) => {
     const opts = {
         colours: [
             {
-                name: "red",
+                name: "orange",
                 space: "BGR",
-                upper: new cv_analytics_lib_1.cv.Vec3(50, 50, 255),
-                lower: new cv_analytics_lib_1.cv.Vec3(0, 0, 230)
-            },
-            {
-                name: "blue",
-                space: "BGR",
-                upper: new cv_analytics_lib_1.cv.Vec3(255, 150, 150),
-                lower: new cv_analytics_lib_1.cv.Vec3(230, 0, 0)
-            },
-            {
-                name: "green",
-                space: "BGR",
-                upper: new cv_analytics_lib_1.cv.Vec3(150, 255, 150),
-                lower: new cv_analytics_lib_1.cv.Vec3(0, 150, 0)
+                upper: new cv_analytics_lib_1.cv.Vec3(255, 255, 255),
+                lower: new cv_analytics_lib_1.cv.Vec3(50, 80, 230)
             }
         ],
         filter: (rect) => {
-            return rect.y <= 100 && rect.width <= 40 && rect.height <= 40;
+            return true;
         }
     };
     const rects = items.detect(frame, opts);
     // track items, purge the inactive ones
     items.add(rects);
     items.purgeInactive();
+    console.log(items.getItems().length);
     let colour;
     items.getItems().forEach(item => {
         switch (item.type) {
@@ -63,10 +52,17 @@ grabFrames(`./${movie}`, 20, (frame) => {
                 break;
         }
         frame.drawRectangle(item.mostRecentPosition, colour, lineThickness);
-        frame.putText(`${item.id.toString()}`, new cv_analytics_lib_1.cv.Point2(item.mostRecentPosition.x - 10, item.mostRecentPosition.y - 10), cv_analytics_lib_1.cv.FONT_ITALIC, 0.8, colour, 2);
+        // frame.putText(`${item.id.toString()}`, new cv.Point2(item.mostRecentPosition.x - 10, item.mostRecentPosition.y - 10), cv.FONT_ITALIC, 0.8, colour, 2);
     });
-    frame.putText(items.getItems().length.toString(), new cv_analytics_lib_1.cv.Point2(10, 40), cv_analytics_lib_1.cv.FONT_ITALIC, 1.5, red, 2);
+    // frame.putText(
+    //   items.getItems().length.toString(),
+    //   new cv.Point2(10, 40),
+    //   cv.FONT_ITALIC,
+    //   1.5,
+    //   red,
+    //   2
+    // );
     // put into window
     cv_analytics_lib_1.cv.imshow('Tracking', frame);
 });
-//# sourceMappingURL=colour.js.map
+//# sourceMappingURL=hi-vis.js.map

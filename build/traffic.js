@@ -35,7 +35,7 @@ grabFrames(`./${movie}`, 40, (frame) => {
     // in this case annotate and count
     items.getItems().forEach(item => {
         const colour = item.direction.x === 'left' ? green : red;
-        frame.drawRectangle(item.mostRecentPosition.openCVRect(), colour, lineThickness);
+        frame.drawRectangle(item.mostRecentPosition, colour, lineThickness);
         frame.putText(`${item.id.toString()} ${item.direction.x || ''}`, new cv_analytics_lib_1.cv.Point2(item.mostRecentPosition.x + 10, item.mostRecentPosition.y + 25), cv_analytics_lib_1.cv.FONT_ITALIC, 0.8, colour, 2);
     });
     counter = items.getItems().reduce((counter, item) => {
